@@ -59,3 +59,82 @@ public class leet1351 {
         return idx;
     }
 }
+-----------------------------------
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class b1300 {
+
+
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        int K = Integer.parseInt(br.readLine());
+
+        long left = 1, right = K;
+        long ans = 0;
+
+        // 이분 탐색 수행
+        while (left <= right) {
+            long mid = (left + right) / 2; // 임의의 수 지정
+            long cnt = 0;
+
+            // mid보다 작거나 같은 수는 몇 개인지 계산.
+            for (int i = 1; i <= N; i++) {
+                cnt += Math.min(mid / i, N);
+
+                System.out.println("mid : "+mid+"cnt : "+cnt );
+            }
+
+            if (cnt < K) {
+                left = mid + 1;
+            } else {
+                System.out.println(cnt);
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+
+        System.out.println(
+        
+    }
+}
+
+
+
+
+//
+////세준이는 크기가 N×N인 배열 A를 만들었다.
+////배열에 들어있는 수 A[i][j] = i×j 이다.
+////이 수를 일차원 배열 B에 넣으면 B의 크기는 N×N이 된다. B를 오름차순 정렬했을 때, B[k]를 구해보자.
+//
+//    public static void main(String[] args) throws IOException {
+//
+////        1 2 3 4
+////        2 4 6 8
+////        3 6 9 12
+//          4
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        int N = Integer.parseInt(br.readLine());
+//        int K = Integer.parseInt(br.readLine());
+//
+//        int[] B = new int[N*N];
+//        int temp = 0;
+//        for (int i=1;i<=N;i++){
+//            for (int j=1;j<=N;j++){
+//                B[temp] = i*j;
+//                temp++;
+//                //System.out.println(temp+" : "+(i*j));
+//               // arr.add(i*j);
+//            }
+//
+//        }
+//        System.out.println((K/2)*2);
+//        Arrays.sort(B);
+//        System.out.println(B[K]);
+//
+//    }
+
