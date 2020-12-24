@@ -138,3 +138,140 @@ public class b1300 {
 //
 //    }
 
+-------------------------------------
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class btalchul {
+
+    static int R, C;
+    static Point START;
+    static Point GOAL;
+    static char[][] map;
+    static boolean[][] waterVisited, biberVisited;
+    static Queue<Point> water, biber;
+    static int[] dx = {0, 1, 0, -1};
+    static int[] dy = {1, 0, -1, 0};
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        R = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+
+        map = new char[R][C];
+        waterVisited = new boolean[R][C];
+        biberVisited = new boolean[R][C];
+
+        for (int i = 0; i < R; i++) {
+            String input = br.readLine();
+            for (int j = 0; j < R; j++) {
+                map[i][j] = input.charAt(j);
+
+                if (map[i][j] == 'D') {//도착지점체크
+                    GOAL = new Point(i, j);
+                }
+                if (map[i][j] == '*') {
+                    water.add(new Point(i, j));
+                    waterVisited[i][j] = true;
+                }
+                if (map[i][j] == 'S') {
+                    biber.add(new Point(i, j));
+                    biberVisited[i][j] = true;
+                }
+            }
+        }
+        //목표 : 고슴도치S가 비버의굴D에 최소시간으로 가야함
+        //조건1. 매 분마다 네 칸 중 하나로 이동
+        //조건2. 매 분마다 물 확장됨.
+        int answer = solution();
+        if (answer == 0) {
+            System.out.println("KAKTUS");
+        } else {
+            System.out.println(answer);
+        }
+
+    }
+
+    private static int solution() {
+
+        int count = 0;
+
+        while (!biber.isEmpty()) {
+
+            waterMove();
+            count++;
+
+            int biberlen = biber.size();
+            for (int t = 0; t < biberlen; t++) {//아래에 물이 퍼지기 직전 큐에 담긴 물만 체크해서 물 뿌려야하기 때문에 그 길이만큼만 돌린다.
+                Point biberLocation = biber.poll();
+
+                for (int i = 0; i < 4; i++) {
+
+                    int nx = biberLocation.X + dx[i];
+                    int ny = biberLocation.Y + dy[i];
+
+                    if (nx < 0 || nx >= R || ny < 0 || ny >= C)
+                        continue;
+
+                    if (map[nx][ny] != 'X' && map[nx][ny] != 'D' && !biberVisited[nx][ny]) {
+                        map[nx][ny] = '*';
+                        biberVisited[nx][ny] = true;
+                        biber.add(new Point(nx, ny));
+
+                    }
+
+
+                }
+            }
+
+
+        }
+
+        return 0;
+
+    }
+
+    private static void waterMove() {
+
+        int len = water.size();
+        for (int t = 0; t < len; t++) {//아래에 물이 퍼지기 직전 큐에 담긴 물만 체크해서 물 뿌려야하기 때문에 그 길이만큼만 돌린다.
+            Point waterLocation = water.poll();
+
+            for (int i = 0; i < 4; i++) {
+
+                int nx = waterLocation.X + dx[i];
+                int ny = waterLocation.Y + dy[i];
+
+                if (nx < 0 || nx >= R || ny < 0 || ny >= C)
+                    continue;
+
+                if (map[nx][ny] != 'X' && map[nx][ny] != 'D' && !waterVisited[nx][ny]) {
+                    map[nx][ny] = '*';
+                    water.add(new Point(nx, ny));
+                    waterVisited[nx][ny] = true;
+                }
+
+
+            }
+        }
+
+
+        return;
+    }
+
+    static class Point {
+
+        int X, Y;
+
+        Point(int X, int Y) {
+            this.X = X;
+            this.Y = Y;
+        }
+    }
+}
