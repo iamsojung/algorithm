@@ -1,0 +1,51 @@
+public class leetcode844 {
+
+    public static void main(String[] args) {
+
+        String S = "y#fo##f";
+        String T = "y#f#o##f";
+
+        System.out.println(backspaceCompare(S,T));
+
+    }
+
+    public static boolean backspaceCompare(String S, String T) {
+
+        Stack<Character> stack = new Stack<>();
+        char[] Sarr = S.toCharArray();
+        for(int i=0;i<Sarr.length;i++){
+
+            if(Sarr[i]!='#'){
+                stack.push(Sarr[i]);
+
+            }else if(!stack.isEmpty()){
+                stack.pop();
+
+            }
+
+        }
+        String temp1 = stack.toString();
+        System.out.println(temp1);
+
+        stack.clear();
+
+        char[] Tarr = T.toCharArray();
+        for(int j=0;j<Tarr.length;j++){
+
+            if(Tarr[j]!='#'){
+                stack.push(Tarr[j]);
+
+            }else if(!stack.isEmpty()){
+                stack.pop();
+
+            }
+        }
+        String temp2 = stack.toString();
+        System.out.println(temp2);
+
+        if(temp1.equals(temp2)){
+            return true;
+        }
+        return false;
+    }
+}
