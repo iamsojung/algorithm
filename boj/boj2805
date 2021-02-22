@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class b2805 {
+	
+	private static int m = 0;
+	private static int[] tree;
+        private static long minLen = Integer.MAX_VALUE;
+	private static long maxCut = 0;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String[] inputA = reader.readLine().split(" ");
+
+		int n = Integer.parseInt(inputA[0]);
+
+		m = Integer.parseInt(inputA[1]);
+		
+		tree = new int[n];
+		
+		String[] inputTree = reader.readLine().split(" ");
+		for (int i = 0; i < inputTree.length; i++) {
+			tree[i] = Integer.parseInt(inputTree[i]);
+		}
+		Arrays.sort(tree);
+		System.out.println(Bsearch(0, tree[tree.length - 1]));
+	}
+	
+	public static long Bsearch(long left, long right) {
+		long treeSum = 0;
+		long mid = (left + right) / 2;
+		if(left > right) return maxCut;
+		for (int i : tree) {
+			if(i < mid) continue; 
+			treeSum += i - mid;
+		}
+		if(treeSum >= m) {
+			if(treeSum <= minLen) {
+				minLen = treeSum;
+				maxCut = mid;
+			}
+			return Bsearch(mid + 1, right);
+		}else {
+			return Bsearch(left, mid - 1);
+		}
+	}
+}
