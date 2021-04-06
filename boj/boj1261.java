@@ -1,6 +1,3 @@
-# java
-
-```java
 package algorithm;
 
 import java.io.BufferedReader;
