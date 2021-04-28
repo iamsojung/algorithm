@@ -1,0 +1,41 @@
+class Solution {
+     static public String solution(String s) {
+
+        String answer = "";
+        StringBuilder sb = new StringBuilder();
+        String[] temp = s.split(" ",-1);
+
+        for (int t = 0; t < temp.length; t++) {
+
+            String[] arr = temp[t].split("");
+
+
+            for (int i = 0; i < arr.length; i++) {
+
+                if (i % 2 == 0) {
+                    if (arr[i] == " ") {
+                        sb.append(arr[i]);
+                        continue;
+                    }
+                    arr[i] = arr[i].toUpperCase();
+                    sb.append(arr[i]);
+                } else {
+                    if (arr[i] == " ") {
+                        sb.append(arr[i]);
+                        continue;
+                    }
+                    arr[i] = arr[i].toLowerCase();
+                    sb.append(arr[i]);
+                }
+            }
+
+            if(t!=temp.length-1)
+                sb.append(" ");
+
+
+        }
+        answer = sb.toString();
+        System.out.println(answer);
+        return answer;
+    }
+}
