@@ -31,3 +31,4 @@ public class boj1912 {
         System.out.println(max);
     }
 }
+
