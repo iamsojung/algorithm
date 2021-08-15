@@ -16,7 +16,6 @@ public class boj15664 {
     static StringBuilder sb;
     static HashSet<String> hs = new HashSet<>();
 
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
