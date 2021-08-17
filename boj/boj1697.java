@@ -11,6 +11,7 @@ public class boj1697 {
 
     static int N, K;
     static boolean[] visited = new boolean[100001];
+    static int[] dir = {-1,1};
 
     public static void main(String[] args) throws IOException {
 
@@ -37,17 +38,12 @@ public class boj1697 {
                 System.out.println(p.T);
                 return;
             }
-
-            int tempX = p.X + 1;
-            if (tempX <= 100000 && tempX >= 0&&!visited[tempX]) {
-                visited[tempX]=true;
-                q.add(new Point(tempX, p.T + 1));
-            }
-            int temp1 = p.X - 1;
-            if (temp1 <= 100000 && temp1 >= 0&&!visited[temp1]) {
-
-                visited[temp1]=true;
-                q.add(new Point(temp1, p.T + 1));
+            for (int i = 0; i < 2; i++) {
+                int temp = p.X+dir[i];
+                if (temp <= 100000 && temp >= 0&&!visited[temp]) {
+                    visited[temp]=true;
+                    q.add(new Point(temp, p.T + 1));
+                }
             }
             int temp2 = p.X * 2;
             if (temp2 <= 100000 && temp2 >= 0&&!visited[temp2]) {
