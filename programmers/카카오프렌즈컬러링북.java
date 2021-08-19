@@ -84,4 +84,87 @@ public class programmers_카카오프렌즈컬러링북 {
 
         }
     }
+}//아래는 bfs로 새로 푼 방식
+/*
+import java.util.*;
+
+class Solution {
+    
+    static boolean[][] visited;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
+
+    static public int[] solution(int m, int n, int[][] picture) {
+        int numberOfArea = 0;
+        int maxSizeOfOneArea = 0;
+
+        visited = new boolean[m][n];
+
+        int cnt = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!visited[i][j]&&picture[i][j]!=0) {
+                    cnt++;
+                    int temp = bfs(i, j, m, n, picture);
+                    max = Math.max(temp, max);
+                }
+
+            }
+        }
+        //System.out.println("max : " + max);
+        //System.out.println("cnt : " + cnt);
+
+
+        int[] answer = new int[2];
+        answer[0] = cnt;
+        answer[1] = max;
+        return answer;
+    }
+
+    private static int bfs(int i, int j, int m, int n, int[][] picture) {
+
+        visited[i][j] = true;
+
+        Queue<Point> q = new LinkedList<>();
+        q.add(new Point(i, j));
+
+        int land = 1;
+
+        while (!q.isEmpty()) {
+
+            Point p = q.poll();
+            int val = picture[p.x][p.y];
+
+            for (int k = 0; k < 4; k++) {
+                int tempX = p.x + dx[k];
+                int tempY = p.y + dy[k];
+
+                if (tempX < 0 || tempY < 0 || tempX >= m || tempY >= n)
+                    continue;
+
+                if (!visited[tempX][tempY] && picture[tempX][tempY] == val) {
+                    visited[tempX][tempY] = true;
+                    q.add(new Point(tempX, tempY));
+                    land++;
+                }
+
+            }
+        }
+        //System.out.println(land);
+        return land;
+    }
+
+    static class Point {
+        int x;
+        int y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 }
+
+*/
