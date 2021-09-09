@@ -1,49 +1,54 @@
+package week10;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class boj2805 {
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
 
-        int[] arr = new int[n];
-        
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        long[] arr = new long[N];
+        long max = 0;
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i <n ; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N; i++) {
+            arr[i] = Long.parseLong(st.nextToken());
+            max = Math.max(max,arr[i]);
         }
 
-        Arrays.sort(arr);
+        long start = 1;
+        long end = max;
 
-        int left =1;
-        int right =arr[n-1];
-        long height =0;
-        int mid =0;
+        while (start<=end){
+            long count = 0;
+            long mid = (start+end)/2;
 
-        while(left <= right){
-            height =0;
-            mid =(left+right)/2;
+            for (int i = 0; i < N; i++) {
 
-            for (int i = 0; i <n ; i++) {
-                if(arr[i]>=mid) {
-                    height += (arr[i] -mid);
-                }
+                long temp = arr[i]-mid;
+
+                if(temp<0)
+                    continue;
+
+                count = temp+count;
             }
-            if(height >= m){
-                left = mid + 1;
-            }else  if(height < m){
-                right = mid-1;
+            if(count>=M){
+                start = mid+1;
+                            }
+            if(count<M){
+                end = mid -1;
             }
+
         }
-        System.out.println(right);
+        System.out.println(start-1);
+
+
     }
 }
-
-
